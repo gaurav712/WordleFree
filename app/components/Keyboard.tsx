@@ -1,5 +1,11 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, useColorScheme, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableNativeFeedback,
+  useColorScheme,
+  View,
+} from 'react-native';
 
 interface KeyboardProps {
   onKeyPress(char: string): void;
@@ -31,7 +37,7 @@ const Keyboard = (props: KeyboardProps) => {
             {row.map(key => {
               const isDisabled = disabledKeyList.includes(key);
               return (
-                <Pressable
+                <TouchableNativeFeedback
                   key={key}
                   disabled={isDisabled}
                   onPress={() => onKeyPress(key)}>
@@ -54,7 +60,7 @@ const Keyboard = (props: KeyboardProps) => {
                       {key}
                     </Text>
                   </View>
-                </Pressable>
+                </TouchableNativeFeedback>
               );
             })}
           </View>
