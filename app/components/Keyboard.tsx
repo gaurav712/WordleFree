@@ -7,15 +7,15 @@ interface KeyboardProps {
 }
 
 export enum SpecialKeyboardKeys {
-  DELETE = 'delete',
-  GUESS = 'guess',
+  SUBMIT = 'Submit',
+  DELETE = 'Delete',
 }
 
 const keySequence: string[][] = [
   ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
   ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
   ['Z', 'X', 'C', 'V', 'B', 'N', 'M'],
-  [SpecialKeyboardKeys.DELETE, SpecialKeyboardKeys.GUESS],
+  [SpecialKeyboardKeys.SUBMIT, SpecialKeyboardKeys.DELETE],
 ];
 
 const Keyboard = (props: KeyboardProps) => {

@@ -54,7 +54,7 @@ const GameScreen = () => {
     (key: string) => {
       if (key === SpecialKeyboardKeys.DELETE) {
         setInputWord(prev => prev.slice(0, -1));
-      } else if (key === SpecialKeyboardKeys.GUESS) {
+      } else if (key === SpecialKeyboardKeys.SUBMIT) {
         setGuessList(prev => [...prev, inputWord.toUpperCase()]);
         setInputWord('');
       } else if (key.length === 1) {
@@ -129,7 +129,7 @@ const GameScreen = () => {
         <Keyboard
           disabledKeyList={[
             ...disabledLetters,
-            inputWord.length !== MAX_WORD_LEN ? SpecialKeyboardKeys.GUESS : '',
+            inputWord.length !== MAX_WORD_LEN ? SpecialKeyboardKeys.SUBMIT : '',
           ]}
           onKeyPress={onKeyPress}
         />
