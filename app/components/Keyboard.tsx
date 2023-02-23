@@ -73,7 +73,9 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingHorizontal: 8,
     margin: 4,
-    borderRadius: 2,
+    borderRadius: 5,
+    minWidth: '7.75%',
+    alignItems: 'center',
     borderWidth: 1,
   },
   cellDisabled: {
