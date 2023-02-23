@@ -82,7 +82,14 @@ const GameScreen = () => {
     <View style={styles.fg1}>
       {BOARD_TEMPLATE.map((row, rowIndex) => {
         return (
-          <View key={`row-${rowIndex}`} style={styles.row}>
+          <View
+            key={`row-${rowIndex}`}
+            style={[
+              styles.row,
+              {
+                opacity: gameOver ? 0.3 : 1,
+              },
+            ]}>
             {row.map((_, colIndex) => {
               const guessLetter = guessList[rowIndex]?.[colIndex];
               let state: TextBlockState = TextBlockState.GUESS;
@@ -112,62 +119,74 @@ const GameScreen = () => {
         );
       })}
 
-      <View style={styles.bottomContainer}>
-        {gameOver ? (
-          <>
-            <Text
-              style={[
-                styles.text,
-                styles.mb12,
-                {
-                  color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
-                },
-              ]}>
-              Game Over!
-            </Text>
-            <Text
-              style={[
-                styles.text,
-                styles.mb12,
-                {
-                  color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
-                },
-              ]}>
-              The word was : {wordToGuess.current}
-            </Text>
-
-            <Text
-              style={[
-                styles.text,
-                {
-                  color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
-                },
-              ]}
-              selectable>
-              {wordleEmoji}
-            </Text>
-
-            <View style={styles.buttonRow}>
-              <Button
-                cta="Copy Score"
-                onPress={() => Clipboard.setString(wordleEmoji)}
-              />
-              <View style={styles.buttonSpacer} />
-              <Button cta="Play Again" onPress={() => setGameOver(false)} />
-            </View>
-          </>
-        ) : (
-          <Keyboard
-            disabledKeyList={[
-              ...disabledLetters,
-              inputWord.length !== MAX_WORD_LEN
-                ? SpecialKeyboardKeys.GUESS
-                : '',
-            ]}
-            onKeyPress={onKeyPress}
-          />
-        )}
+      <View
+        style={[
+          styles.bottomContainer,
+          {
+            opacity: gameOver ? 0.3 : 1,
+          },
+        ]}>
+        <Keyboard
+          disabledKeyList={[
+            ...disabledLetters,
+            inputWord.length !== MAX_WORD_LEN ? SpecialKeyboardKeys.GUESS : '',
+          ]}
+          onKeyPress={onKeyPress}
+        />
       </View>
+      {gameOver ? (
+        <View
+          style={[
+            styles.overlay,
+            {
+              backgroundColor: colorScheme === 'dark' ? '#282828' : '#eeeeee',
+              borderColor: colorScheme === 'dark' ? '#ebdbb2' : '#000',
+            },
+          ]}>
+          <Text
+            style={[
+              styles.text,
+              styles.mb12,
+              {
+                color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
+              },
+            ]}>
+            Game Over!
+          </Text>
+          <Text
+            style={[
+              styles.text,
+              styles.mb12,
+              {
+                color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
+              },
+            ]}>
+            The word was : {wordToGuess.current}
+          </Text>
+
+          <Text
+            style={[
+              styles.text,
+              {
+                color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
+              },
+            ]}
+            selectable>
+            {wordleEmoji}
+          </Text>
+
+          <View style={styles.buttonRow}>
+            <Button
+              cta="Copy Score"
+              onPress={() => Clipboard.setString(wordleEmoji)}
+            />
+            <View style={styles.buttonSpacer} />
+            <Button cta="Play Again" onPress={() => setGameOver(false)} />
+          </View>
+        </View>
+      ) : (
+        <></>
+      )}
     </View>
   );
 };
@@ -205,6 +224,18 @@ const styles = StyleSheet.create({
   },
   buttonSpacer: {
     width: 12,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    elevation: 10,
+    width: '90%',
+    height: '60%',
+    marginVertical: '20%',
+    marginHorizontal: '5%',
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
   },
 });
 
