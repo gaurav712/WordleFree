@@ -48,15 +48,15 @@ const TextBlock = (props: TextBlockProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 40,
-    height: 40,
+    minWidth: '15%',
+    aspectRatio: 1,
     borderWidth: 1,
     borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
-    fontSize: 16,
+    fontSize: 20,
     color: '#fff',
     fontWeight: 'bold',
   },
