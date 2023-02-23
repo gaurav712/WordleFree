@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {StyleSheet, Text, View, Clipboard, useColorScheme} from 'react-native';
+import {StyleSheet, Text, View, useColorScheme} from 'react-native';
 import Button from './components/Button';
 import Keyboard, {SpecialKeyboardKeys} from './components/Keyboard';
 import TextBlock, {TextBlockState} from './components/TextBlock';
@@ -176,10 +176,6 @@ const GameScreen = () => {
           </Text>
 
           <View style={styles.buttonRow}>
-            <Button
-              cta="Copy Score"
-              onPress={() => Clipboard.setString(wordleEmoji)}
-            />
             <View style={styles.buttonSpacer} />
             <Button cta="Play Again" onPress={() => setGameOver(false)} />
           </View>
