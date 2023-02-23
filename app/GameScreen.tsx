@@ -68,25 +68,6 @@ const GameScreen = () => {
     [disabledLetters, inputWord],
   );
 
-  useEffect(() => {
-    if (Platform.OS === 'web') {
-      const callback = (event: KeyboardEvent) => {
-        const key = event.key;
-
-        if (/^[A-Za-z]$/.test(key)) {
-          onKeyPress(key.toUpperCase());
-        } else if (key === 'Enter' && inputWord.length === MAX_WORD_LEN) {
-          onKeyPress(SpecialKeyboardKeys.GUESS);
-        } else if (key === 'Backspace') {
-          onKeyPress(SpecialKeyboardKeys.DELETE);
-        }
-      };
-
-      window.addEventListener('keyup', callback);
-      return () => window.removeEventListener('keyup', callback);
-    }
-  }, [inputWord.length, onKeyPress]);
-
   const wordleEmoji: string = useMemo(() => {
     if (!gameOver) {
       return '';
