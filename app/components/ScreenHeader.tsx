@@ -20,7 +20,7 @@ const ScreenHeader = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 12,
+    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

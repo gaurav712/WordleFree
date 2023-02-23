@@ -1,6 +1,5 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, useColorScheme, View} from 'react-native';
-import ScreenHeader from './app/components/ScreenHeader';
 import GameScreen from './app/GameScreen';
 
 export default function App() {
@@ -15,7 +14,6 @@ export default function App() {
         },
       ]}>
       <SafeAreaView style={styles.container}>
-        <ScreenHeader />
         <GameScreen />
       </SafeAreaView>
     </View>

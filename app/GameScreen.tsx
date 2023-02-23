@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {StyleSheet, Text, View, useColorScheme} from 'react-native';
 import Button from './components/Button';
 import Keyboard, {SpecialKeyboardKeys} from './components/Keyboard';
+import ScreenHeader from './components/ScreenHeader';
 import TextBlock, {TextBlockState} from './components/TextBlock';
 import {MAX_GUESSES, MAX_WORD_LEN} from './constants/gameConstants';
 import {getInitialBoard, getRandomWord, getWordleEmoji} from './gameUtils';
@@ -80,6 +81,7 @@ const GameScreen = () => {
 
   return (
     <View style={styles.fg1}>
+      <ScreenHeader />
       {BOARD_TEMPLATE.map((row, rowIndex) => {
         return (
           <View
@@ -195,6 +197,8 @@ const styles = StyleSheet.create({
   },
   fg1: {
     flexGrow: 1,
+    height: '100%',
+    justifyContent: 'space-between',
   },
   text: {
     fontSize: 22,
