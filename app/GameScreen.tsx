@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {StyleSheet, Text, View, Clipboard, Platform} from 'react-native';
+import {StyleSheet, Text, View, Clipboard, useColorScheme} from 'react-native';
 import Button from './components/Button';
 import Keyboard, {SpecialKeyboardKeys} from './components/Keyboard';
 import TextBlock, {TextBlockState} from './components/TextBlock';
@@ -15,6 +15,8 @@ const GameScreen = () => {
   const [disabledLetters, setDisabledLetters] = useState<string[]>([]);
 
   const wordToGuess = useRef<string>('xxxxx');
+
+  const colorScheme = useColorScheme();
 
   useEffect(() => {
     if (gameOver === false) {
@@ -113,12 +115,35 @@ const GameScreen = () => {
       <View style={styles.bottomContainer}>
         {gameOver ? (
           <>
-            <Text style={[styles.textWhite, styles.mb12]}>Game Over!</Text>
-            <Text style={[styles.textWhite, styles.mb12]}>
+            <Text
+              style={[
+                styles.text,
+                styles.mb12,
+                {
+                  color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
+                },
+              ]}>
+              Game Over!
+            </Text>
+            <Text
+              style={[
+                styles.text,
+                styles.mb12,
+                {
+                  color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
+                },
+              ]}>
               The word was : {wordToGuess.current}
             </Text>
 
-            <Text style={styles.textWhite} selectable>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
+                },
+              ]}
+              selectable>
               {wordleEmoji}
             </Text>
 
@@ -157,8 +182,7 @@ const styles = StyleSheet.create({
   fg1: {
     flexGrow: 1,
   },
-  textWhite: {
-    color: '#fff',
+  text: {
     fontSize: 22,
   },
   row: {
@@ -173,7 +197,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   score: {
-    color: '#fff',
     fontSize: 14,
     marginBottom: 12,
   },

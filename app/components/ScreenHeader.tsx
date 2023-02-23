@@ -1,10 +1,19 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 
 const ScreenHeader = () => {
+  const colorScheme = useColorScheme();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Wordle</Text>
+      <Text
+        style={[
+          styles.title,
+          {
+            color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
+          },
+        ]}>
+        Wordle
+      </Text>
     </View>
   );
 };
@@ -16,7 +25,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    color: '#df928e',
     fontWeight: '400',
     fontSize: 36,
   },

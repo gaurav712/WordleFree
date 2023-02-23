@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, useColorScheme, View} from 'react-native';
 
 interface KeyboardProps {
   onKeyPress(char: string): void;
@@ -21,6 +21,8 @@ const keySequence: string[][] = [
 const Keyboard = (props: KeyboardProps) => {
   const {onKeyPress, disabledKeyList} = props;
 
+  const colorScheme = useColorScheme();
+
   return (
     <>
       {keySequence.map((row, rowIndex) => {
@@ -34,9 +36,21 @@ const Keyboard = (props: KeyboardProps) => {
                   disabled={isDisabled}
                   onPress={() => onKeyPress(key)}>
                   <View
-                    style={[styles.cell, isDisabled && styles.cellDisabled]}>
+                    style={[
+                      styles.cell,
+                      isDisabled && styles.cellDisabled,
+                      {
+                        borderColor:
+                          colorScheme === 'dark' ? '#eeeeee' : '#282828',
+                      },
+                    ]}>
                     <Text
-                      style={[styles.text, isDisabled && styles.textDisabled]}>
+                      style={[
+                        styles.text,
+                        {
+                          color: colorScheme === 'dark' ? '#eeeeee' : '#000',
+                        },
+                      ]}>
                       {key}
                     </Text>
                   </View>
@@ -61,17 +75,12 @@ const styles = StyleSheet.create({
     margin: 4,
     borderRadius: 2,
     borderWidth: 1,
-    borderColor: 'white',
   },
   cellDisabled: {
-    borderColor: 'grey',
+    opacity: 0.3,
   },
   text: {
-    color: 'white',
     fontSize: 16,
-  },
-  textDisabled: {
-    color: 'grey',
   },
 });
 

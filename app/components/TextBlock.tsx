@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 
 export enum TextBlockState {
   GUESS = 'guess',
@@ -11,7 +11,7 @@ export enum TextBlockState {
 const ColorMap: Record<TextBlockState, string> = {
   [TextBlockState.GUESS]: 'transparent',
   [TextBlockState.CORRECT]: '#76b041',
-  [TextBlockState.POSSIBLE]: '#FFC914',
+  [TextBlockState.POSSIBLE]: '#F6BE00',
   [TextBlockState.INCORRECT]: '#8b939c',
 };
 
@@ -22,16 +22,26 @@ interface TextBlockProps {
 
 const TextBlock = (props: TextBlockProps) => {
   const {text, state} = props;
+  const colorScheme = useColorScheme();
 
   return (
     <View
       style={[
         styles.container,
         {
+          borderColor: colorScheme === 'dark' ? '#eeeeee' : '#282828',
           backgroundColor: ColorMap[state],
         },
       ]}>
-      <Text style={styles.text}>{text.toUpperCase()}</Text>
+      <Text
+        style={[
+          styles.text,
+          {
+            color: colorScheme === 'dark' ? '#eeeeee' : '#000',
+          },
+        ]}>
+        {text.toUpperCase()}
+      </Text>
     </View>
   );
 };
@@ -42,7 +52,6 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     borderRadius: 4,
-    borderColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
