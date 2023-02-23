@@ -163,7 +163,6 @@ const GameScreen = () => {
             ]}>
             The word was : {wordToGuess.current}
           </Text>
-
           <Text
             style={[
               styles.text,
@@ -230,7 +229,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%',
     borderWidth: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     borderRadius: 10,
   },
 });

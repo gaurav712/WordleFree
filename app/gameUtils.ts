@@ -1,5 +1,4 @@
 import fiveLetterWords from './constants/fiveLetterWords.json';
-import {MAX_GUESSES} from './constants/gameConstants';
 
 export const getInitialBoard = (): string[][] => {
   const board: string[][] = [];
@@ -17,10 +16,7 @@ export const getRandomWord = (): string => {
 };
 
 export const getWordleEmoji = (word: string, guessList: string[]): string => {
-  const hasWon = guessList[guessList.length - 1] === word;
-
-  let output = `Wordle ${hasWon ? guessList.length : 'x'}/${MAX_GUESSES}\n\n`;
-
+  let output = '';
   guessList.forEach(row => {
     let line = '';
 
