@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, useColorScheme, View} from 'react-native';
 
 interface ButtonProps {
   cta: string;
@@ -8,6 +8,7 @@ interface ButtonProps {
 
 const Button = (props: ButtonProps) => {
   const {cta, onPress} = props;
+  const colorScheme = useColorScheme();
 
   const [isPressedIn, setIsPressedIn] = useState(false);
 
@@ -16,8 +17,24 @@ const Button = (props: ButtonProps) => {
       onPress={onPress}
       onPressIn={() => setIsPressedIn(true)}
       onPressOut={() => setIsPressedIn(false)}>
-      <View style={[styles.button, isPressedIn && styles.active]}>
-        <Text style={styles.cta}>{cta}</Text>
+      <View
+        style={[
+          {
+            borderColor: colorScheme === 'dark' ? '#eeeeee' : '#282828',
+            backgroundColor: colorScheme === 'dark' ? '#282828' : '#eeeeee',
+          },
+          styles.button,
+          isPressedIn && styles.active,
+        ]}>
+        <Text
+          style={[
+            styles.cta,
+            {
+              color: colorScheme === 'dark' ? '#eeeeee' : '#000',
+            },
+          ]}>
+          {cta}
+        </Text>
       </View>
     </Pressable>
   );
@@ -29,10 +46,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderWidth: 1,
     borderRadius: 4,
-    borderColor: '#fff',
   },
   cta: {
-    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
