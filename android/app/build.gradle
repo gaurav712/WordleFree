@@ -93,13 +93,13 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.wordle"
+    namespace "io.github.gaurav712.wordle"
     defaultConfig {
-        applicationId "com.wordle"
+        applicationId "io.github.gaurav712.wordle"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
     }
 
     splits {

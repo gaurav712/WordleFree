@@ -1,4 +1,4 @@
-package com.wordle;
+package io.github.gaurav712.wordle;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

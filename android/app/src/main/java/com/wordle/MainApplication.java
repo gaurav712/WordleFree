@@ -1,4 +1,4 @@
-package com.wordle;
+package io.github.gaurav712.wordle;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
