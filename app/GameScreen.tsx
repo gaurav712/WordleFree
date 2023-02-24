@@ -41,7 +41,6 @@ const GameScreen = () => {
 
     guessList.forEach(word => {
       word.split('').forEach(letter => {
-        console.log({letter});
         if (!wordToGuess.current.includes(letter)) {
           list.push(letter);
         }
