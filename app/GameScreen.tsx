@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {StyleSheet, Text, View, useColorScheme} from 'react-native';
+import {StyleSheet, Text, View, useColorScheme, Dimensions} from 'react-native';
 import Button from './components/Button';
 import Keyboard, {SpecialKeyboardKeys} from './components/Keyboard';
 import ScreenHeader from './components/ScreenHeader';
@@ -154,7 +154,6 @@ const GameScreen = () => {
           <Text
             style={[
               styles.text,
-              styles.mb12,
               {
                 color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
               },
@@ -164,26 +163,14 @@ const GameScreen = () => {
           <Text
             style={[
               styles.text,
-              styles.mb12,
               {
                 color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
               },
             ]}>
             The word was : {wordToGuess.current}
           </Text>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
-              },
-            ]}
-            selectable>
-            {wordleEmoji}
-          </Text>
-
+          <Text style={styles.emojiText}>{wordleEmoji}</Text>
           <View style={styles.buttonRow}>
-            <View style={styles.buttonSpacer} />
             <Button cta="Play Again" onPress={() => setGameOver(false)} />
           </View>
         </View>
@@ -195,8 +182,8 @@ const GameScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  mb12: {
-    marginBottom: 12,
+  mb10: {
+    marginBottom: 10,
   },
   mh2: {
     marginHorizontal: 2,
@@ -227,15 +214,15 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: 'row',
   },
-  buttonSpacer: {
-    width: 12,
+  emojiText: {
+    textAlign: 'center',
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     elevation: 10,
     width: '90%',
-    height: '60%',
-    marginVertical: '20%',
+    height: '50%',
+    marginVertical: (Dimensions.get('window').height * 0.5) / 2,
     marginHorizontal: '5%',
     borderWidth: 1,
     alignItems: 'center',
