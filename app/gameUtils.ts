@@ -35,3 +35,7 @@ export const getWordleEmoji = (word: string, guessList: string[]): string => {
 
   return output;
 };
+
+export const isWord = (word: string): boolean => {
+  return fiveLetterWords.includes(word.toLowerCase());
+};

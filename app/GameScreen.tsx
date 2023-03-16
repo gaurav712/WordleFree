@@ -5,7 +5,12 @@ import Keyboard, {SpecialKeyboardKeys} from './components/Keyboard';
 import ScreenHeader from './components/ScreenHeader';
 import TextBlock, {TextBlockState} from './components/TextBlock';
 import {MAX_GUESSES, MAX_WORD_LEN} from './constants/gameConstants';
-import {getInitialBoard, getRandomWord, getWordleEmoji} from './gameUtils';
+import {
+  getInitialBoard,
+  getRandomWord,
+  getWordleEmoji,
+  isWord,
+} from './gameUtils';
 
 const BOARD_TEMPLATE = getInitialBoard();
 
@@ -130,7 +135,9 @@ const GameScreen = () => {
         <Keyboard
           disabledKeyList={[
             ...disabledLetters,
-            inputWord.length !== MAX_WORD_LEN ? SpecialKeyboardKeys.SUBMIT : '',
+            inputWord.length !== MAX_WORD_LEN || !isWord(inputWord)
+              ? SpecialKeyboardKeys.SUBMIT
+              : '',
           ]}
           onKeyPress={onKeyPress}
         />
