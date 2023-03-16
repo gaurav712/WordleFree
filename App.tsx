@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, StyleSheet, useColorScheme, View} from 'react-native';
+import RNBootSplash from 'react-native-bootsplash';
 import GameScreen from './app/GameScreen';
 
 export default function App() {
   const colorScheme = useColorScheme();
+
+  useEffect(() => {
+    RNBootSplash.hide({fade: true});
+  }, []);
 
   return (
     <View
