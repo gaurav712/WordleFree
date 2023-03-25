@@ -108,7 +108,7 @@ android {
         applicationId "io.github.gaurav712.wordle"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
+        versionCode 2
         versionName "0.1"
     }
 
