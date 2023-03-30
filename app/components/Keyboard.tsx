@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableNativeFeedback,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import NeumorphicButton from './NeumorphicButton';
 
 interface KeyboardProps {
   onKeyPress(char: string): void;
@@ -37,7 +32,7 @@ const Keyboard = (props: KeyboardProps) => {
             {row.map(key => {
               const isDisabled = disabledKeyList.includes(key);
               return (
-                <TouchableNativeFeedback
+                <NeumorphicButton
                   key={key}
                   disabled={isDisabled}
                   onPress={() => onKeyPress(key)}>
@@ -47,7 +42,7 @@ const Keyboard = (props: KeyboardProps) => {
                       isDisabled && styles.cellDisabled,
                       {
                         borderColor:
-                          colorScheme === 'dark' ? '#eeeeee' : '#282828',
+                          colorScheme === 'dark' ? '#eeeeee' : '#bbb',
                       },
                     ]}>
                     <Text
@@ -60,7 +55,7 @@ const Keyboard = (props: KeyboardProps) => {
                       {key}
                     </Text>
                   </View>
-                </TouchableNativeFeedback>
+                </NeumorphicButton>
               );
             })}
           </View>
@@ -77,18 +72,18 @@ const styles = StyleSheet.create({
   },
   cell: {
     padding: 5,
-    paddingHorizontal: 8,
-    margin: 4,
+    paddingHorizontal: 10,
     borderRadius: 5,
-    minWidth: '7.75%',
+    minWidth: '8.5%',
     alignItems: 'center',
-    borderWidth: 1,
+    borderWidth: 0.5,
   },
   cellDisabled: {
-    opacity: 0.3,
+    opacity: 0.2,
   },
   text: {
     fontSize: 16,
+    fontFamily: 'monospace',
   },
 });
 
