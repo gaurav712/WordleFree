@@ -54,7 +54,7 @@ const NeumorphicButton = ({
         ? ['#fff', '#909090']
         : ['#909090', '#fff'],
     );
-  }, [isDown]);
+  }, [isDown, colorScheme]);
 
   return (
     <TouchableWithoutFeedback
