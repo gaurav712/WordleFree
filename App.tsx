@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {SafeAreaView, StyleSheet, useColorScheme, View} from 'react-native';
+import {SafeAreaView, StyleSheet, useColorScheme} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import GameScreen from './app/GameScreen';
 
@@ -11,17 +11,15 @@ export default function App() {
   }, []);
 
   return (
-    <View
+    <SafeAreaView
       style={[
         styles.container,
         {
           backgroundColor: colorScheme === 'dark' ? '#282828' : '#eeeeee',
         },
       ]}>
-      <SafeAreaView style={styles.container}>
-        <GameScreen />
-      </SafeAreaView>
-    </View>
+      <GameScreen />
+    </SafeAreaView>
   );
 }
 
