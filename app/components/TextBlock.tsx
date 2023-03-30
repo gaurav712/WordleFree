@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import {StyleSheet, Text, useColorScheme} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 export enum TextBlockState {
   GUESS = 'guess',
@@ -8,11 +9,18 @@ export enum TextBlockState {
   INCORRECT = 'incorrect',
 }
 
-const ColorMap: Record<TextBlockState, string> = {
-  [TextBlockState.GUESS]: 'transparent',
-  [TextBlockState.CORRECT]: '#76b041',
-  [TextBlockState.POSSIBLE]: '#F6BE00',
-  [TextBlockState.INCORRECT]: '#8b939c',
+const ColorMap: Record<TextBlockState, string[]> = {
+  [TextBlockState.GUESS]: ['transparent', '#cccccc'],
+  [TextBlockState.CORRECT]: ['#30ff44', '#005000'],
+  [TextBlockState.POSSIBLE]: ['#ffdf00', '#8b4513'],
+  [TextBlockState.INCORRECT]: ['#dddddd', '#606060'],
+};
+
+const ColorMapDark: Record<TextBlockState, string[]> = {
+  [TextBlockState.GUESS]: ['#303030', '#050505'],
+  [TextBlockState.CORRECT]: ['#30ff44', '#005000'],
+  [TextBlockState.POSSIBLE]: ['#ffdf00', '#8b4513'],
+  [TextBlockState.INCORRECT]: ['#808080', '#282828'],
 };
 
 interface TextBlockProps {
@@ -25,14 +33,12 @@ const TextBlock = (props: TextBlockProps) => {
   const colorScheme = useColorScheme();
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          borderColor: colorScheme === 'dark' ? '#eeeeee' : '#282828',
-          backgroundColor: ColorMap[state],
-        },
-      ]}>
+    <LinearGradient
+      colors={colorScheme === 'dark' ? ColorMapDark[state] : ColorMap[state]}
+      useAngle={true}
+      angle={145}
+      angleCenter={{x: 0.5, y: 0.5}}
+      style={styles.container}>
       <Text
         style={[
           styles.text,
@@ -42,7 +48,7 @@ const TextBlock = (props: TextBlockProps) => {
         ]}>
         {text.toUpperCase()}
       </Text>
-    </View>
+    </LinearGradient>
   );
 };
 
