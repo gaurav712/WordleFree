@@ -1,5 +1,10 @@
 import React, {useEffect} from 'react';
-import {SafeAreaView, StyleSheet, useColorScheme} from 'react-native';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  useColorScheme,
+} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import GameScreen from './app/GameScreen';
 
@@ -18,6 +23,10 @@ export default function App() {
           backgroundColor: colorScheme === 'dark' ? '#282828' : '#eeeeee',
         },
       ]}>
+      <StatusBar
+        barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+        backgroundColor={colorScheme === 'dark' ? '#282828' : '#eeeeee'}
+      />
       <GameScreen />
     </SafeAreaView>
   );
