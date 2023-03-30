@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {StyleSheet, Text, View, useColorScheme, Dimensions} from 'react-native';
 import Button from './components/Button';
 import Keyboard, {SpecialKeyboardKeys} from './components/Keyboard';
@@ -55,25 +55,16 @@ const GameScreen = () => {
     setDisabledLetters(list);
   }, [guessList]);
 
-  const onKeyPress = useCallback(
-    (key: string) => {
-      if (key === SpecialKeyboardKeys.DELETE) {
-        setInputWord(prev => prev.slice(0, -1));
-      } else if (key === SpecialKeyboardKeys.SUBMIT) {
-        setGuessList(prev => [...prev, inputWord.toUpperCase()]);
-        setInputWord('');
-      } else if (key.length === 1) {
-        setInputWord(prev => {
-          if (prev.length < MAX_WORD_LEN && !disabledLetters.includes(key)) {
-            return prev + key;
-          }
-
-          return prev;
-        });
-      }
-    },
-    [disabledLetters, inputWord],
-  );
+  const onKeyPress = async (key: string) => {
+    if (key === SpecialKeyboardKeys.DELETE) {
+      setInputWord(inputWord.slice(0, -1));
+    } else if (key === SpecialKeyboardKeys.SUBMIT) {
+      setGuessList(prev => [...prev, inputWord.toUpperCase()]);
+      setInputWord('');
+    } else {
+      setInputWord(inputWord.length === 5 ? inputWord : inputWord + key);
+    }
+  };
 
   const wordleEmoji: string = useMemo(() => {
     if (!gameOver) {
