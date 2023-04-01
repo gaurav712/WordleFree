@@ -12,7 +12,7 @@ const ScreenHeader = () => {
             color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
           },
         ]}>
-        Wordle
+        wordle
       </Text>
     </View>
   );
@@ -26,7 +26,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: '400',
-    fontSize: 36,
+    fontSize: 48,
+    fontFamily: 'RetrocrazeRegular',
+    letterSpacing: 2,
   },
 });
 
