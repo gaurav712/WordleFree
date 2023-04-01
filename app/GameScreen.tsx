@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,12 +10,7 @@ import Keyboard, {SpecialKeyboardKeys} from './components/Keyboard';
 import ScreenHeader from './components/ScreenHeader';
 import TextBlock, {TextBlockState} from './components/TextBlock';
 import {MAX_GUESSES, MAX_WORD_LEN} from './constants/gameConstants';
-import {
-  getInitialBoard,
-  getRandomWord,
-  getWordleEmoji,
-  isWord,
-} from './gameUtils';
+import {getInitialBoard, getRandomWord, isWord} from './gameUtils';
 
 const BOARD_TEMPLATE = getInitialBoard();
 
@@ -69,14 +64,6 @@ const GameScreen = () => {
       setInputWord(inputWord.length === 5 ? inputWord : inputWord + key);
     }
   };
-
-  const wordleEmoji: string = useMemo(() => {
-    if (!gameOver) {
-      return '';
-    }
-
-    return getWordleEmoji(wordToGuess.current, guessList);
-  }, [gameOver, guessList]);
 
   return (
     <View style={styles.fg1}>

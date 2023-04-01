@@ -15,27 +15,6 @@ export const getRandomWord = (): string => {
   return fiveLetterWords[randomIndex].toUpperCase();
 };
 
-export const getWordleEmoji = (word: string, guessList: string[]): string => {
-  let output = '';
-  guessList.forEach(row => {
-    let line = '';
-
-    row.split('').forEach((char, colIndex) => {
-      if (char === word[colIndex]) {
-        line += '🟩';
-      } else if (word.includes(char)) {
-        line += '🟨';
-      } else {
-        line += '⬜️';
-      }
-    });
-
-    output += line + '\n';
-  });
-
-  return output;
-};
-
 export const isWord = (word: string): boolean => {
   return fiveLetterWords.includes(word.toLowerCase());
 };
