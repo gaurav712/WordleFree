@@ -60,6 +60,9 @@ const GameScreen = () => {
       setInputWord(inputWord.slice(0, -1));
     } else if (key === SpecialKeyboardKeys.SUBMIT) {
       setGuessList(prev => [...prev, inputWord.toUpperCase()]);
+      if (wordToGuess.current !== inputWord) {
+        setInputWord('');
+      }
     } else {
       setInputWord(inputWord.length === 5 ? inputWord : inputWord + key);
     }
