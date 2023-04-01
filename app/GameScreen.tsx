@@ -1,6 +1,11 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {StyleSheet, Text, View, useColorScheme, Dimensions} from 'react-native';
-import Button from './components/Button';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  useColorScheme,
+} from 'react-native';
 import Keyboard, {SpecialKeyboardKeys} from './components/Keyboard';
 import ScreenHeader from './components/ScreenHeader';
 import TextBlock, {TextBlockState} from './components/TextBlock';
@@ -60,7 +65,6 @@ const GameScreen = () => {
       setInputWord(inputWord.slice(0, -1));
     } else if (key === SpecialKeyboardKeys.SUBMIT) {
       setGuessList(prev => [...prev, inputWord.toUpperCase()]);
-      setInputWord('');
     } else {
       setInputWord(inputWord.length === 5 ? inputWord : inputWord + key);
     }
@@ -138,18 +142,22 @@ const GameScreen = () => {
           style={[
             styles.overlay,
             {
-              backgroundColor: colorScheme === 'dark' ? '#282828' : '#eeeeee',
+              backgroundColor:
+                colorScheme === 'dark' ? '#282828ee' : '#eeeeeeee',
               borderColor: colorScheme === 'dark' ? '#ebdbb2' : '#000',
             },
           ]}>
           <Text
             style={[
               styles.text,
+              styles.gameOver,
               {
                 color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
               },
             ]}>
-            Game Over!
+            {wordToGuess.current === inputWord
+              ? 'you got it!'
+              : 'game over! :('}
           </Text>
           <Text
             style={[
@@ -158,12 +166,30 @@ const GameScreen = () => {
                 color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
               },
             ]}>
-            The word was : {wordToGuess.current}
+            the word was : {wordToGuess.current.toLowerCase()}
           </Text>
-          <Text style={styles.emojiText}>{wordleEmoji}</Text>
-          <View style={styles.buttonRow}>
-            <Button cta="Play Again" onPress={() => setGameOver(false)} />
-          </View>
+          <TouchableOpacity
+            onPress={() => {
+              setInputWord('');
+              setGameOver(false);
+            }}
+            style={[
+              styles.button,
+              {
+                borderColor: colorScheme === 'dark' ? '#ebdbb2' : '#000',
+              },
+            ]}>
+            <Text
+              style={[
+                styles.text,
+                styles.buttonText,
+                {
+                  color: colorScheme === 'dark' ? '#ebdbb2' : '#000',
+                },
+              ]}>
+              ↻ play again
+            </Text>
+          </TouchableOpacity>
         </View>
       ) : (
         <></>
@@ -184,8 +210,23 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'space-between',
   },
+  gameOver: {
+    fontSize: 48,
+  },
   text: {
-    fontSize: 22,
+    fontSize: 24,
+    fontFamily: 'RetrocrazeRegular',
+    letterSpacing: 1.5,
+    marginVertical: 24,
+  },
+  button: {
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+  },
+  buttonText: {
+    marginVertical: 0,
   },
   row: {
     marginBottom: 4,
@@ -198,27 +239,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  score: {
-    fontSize: 14,
-    marginBottom: 12,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-  },
-  emojiText: {
-    textAlign: 'center',
-  },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     elevation: 10,
-    width: '90%',
-    height: '50%',
-    marginVertical: (Dimensions.get('window').height * 0.5) / 2,
-    marginHorizontal: '5%',
-    borderWidth: 1,
     alignItems: 'center',
-    justifyContent: 'space-evenly',
-    borderRadius: 10,
+    justifyContent: 'center',
   },
 });
 
