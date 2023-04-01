@@ -217,6 +217,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     marginVertical: 0,
+    lineHeight: 30,
   },
   row: {
     marginBottom: 4,
