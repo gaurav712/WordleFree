@@ -68,10 +68,71 @@ const GameScreen = () => {
     }
   };
 
+  const getCount = (letter: string, word: string) => {
+    let count = 0;
+    for (let i = 0; i < word.length; i++) {
+      if (letter === word[i]) {
+        count += 1;
+      }
+    }
+    return count;
+  };
+
+  const getColorStates = (input: string, wordToGuess: string) => {
+    if (!input || !wordToGuess) {
+      return [
+        TextBlockState.GUESS,
+        TextBlockState.GUESS,
+        TextBlockState.GUESS,
+        TextBlockState.GUESS,
+        TextBlockState.GUESS,
+      ];
+    }
+
+    let colorStates: TextBlockState[] = [];
+    const lettersAccountedFor: Record<string, number> = {};
+
+    const letterHandled = (letter: string) => {
+      if (!lettersAccountedFor[letter]) {
+        lettersAccountedFor[letter] = 1;
+      } else {
+        lettersAccountedFor[letter] += 1;
+      }
+    };
+
+    for (let i = 0; i < 5; i++) {
+      if (input[i] === wordToGuess[i]) {
+        letterHandled(input[i]);
+      }
+    }
+
+    for (let i = 0; i < 5; i++) {
+      if (input[i] === wordToGuess[i]) {
+        colorStates[i] = TextBlockState.CORRECT;
+      } else if (wordToGuess.includes(input[i])) {
+        if (lettersAccountedFor[input[i]] >= getCount(input[i], wordToGuess)) {
+          colorStates[i] = TextBlockState.INCORRECT;
+        } else {
+          colorStates[i] = TextBlockState.POSSIBLE;
+        }
+        letterHandled(input[i]);
+      } else {
+        colorStates[i] = TextBlockState.INCORRECT;
+        letterHandled(input[i]);
+      }
+    }
+
+    return colorStates;
+  };
+
   return (
     <View style={styles.fg1}>
       <ScreenHeader />
       {BOARD_TEMPLATE.map((row, rowIndex) => {
+        const colorStates = getColorStates(
+          guessList[rowIndex],
+          wordToGuess.current,
+        );
         return (
           <View
             key={`row-${rowIndex}`}
@@ -83,17 +144,6 @@ const GameScreen = () => {
             ]}>
             {row.map((_, colIndex) => {
               const guessLetter = guessList[rowIndex]?.[colIndex];
-              let state: TextBlockState = TextBlockState.GUESS;
-
-              if (guessLetter === undefined) {
-                state = TextBlockState.GUESS;
-              } else if (guessLetter === wordToGuess.current[colIndex]) {
-                state = TextBlockState.CORRECT;
-              } else if (wordToGuess.current.includes(guessLetter)) {
-                state = TextBlockState.POSSIBLE;
-              } else {
-                state = TextBlockState.INCORRECT;
-              }
 
               const letterToShow =
                 rowIndex === guessList.length
@@ -102,7 +152,10 @@ const GameScreen = () => {
 
               return (
                 <View style={styles.mh2} key={`col-${colIndex}`}>
-                  <TextBlock text={letterToShow || ''} state={state} />
+                  <TextBlock
+                    text={letterToShow || ''}
+                    state={colorStates[colIndex]}
+                  />
                 </View>
               );
             })}
